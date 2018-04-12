@@ -52,6 +52,7 @@ public class MainWindow extends JFrame{
 		add(menuBar, BorderLayout.NORTH);
 		
 		tree = new JTree();
+		tree.setModel(null);
 		ScrollPane scroll = new ScrollPane();
 		scroll.add(tree);
 		
@@ -64,26 +65,24 @@ public class MainWindow extends JFrame{
 		DefaultMutableTreeNode father = new DefaultMutableTreeNode(root.getName());
 		treeModel = new DefaultTreeModel(father);
 		tree.setModel(treeModel);
+		treeModel.setAsksAllowsChildren(true);
 		int i = 0;
 		for (String extension : extensions) {
 			DefaultMutableTreeNode childs = new DefaultMutableTreeNode(extension);
 			treeModel.insertNodeInto(childs, father, i);
-			i++;
 			addFiles(childs,files,extensions);
+			i++;
 		}
 	}
 
 	private void addFiles(DefaultMutableTreeNode childs, ArrayList<String> files, HashSet<String> extensions) {
 		
-		for (String extension : extensions) {
+			int i = 0;
 			for (String file : files) {
-				int i = 0;
-				if(extension.equals(getFileExtension(new File(file)))) {
-					DefaultMutableTreeNode childFilds = new DefaultMutableTreeNode(file);
-					treeModel.insertNodeInto(childFilds, childs, i);
+				if(childs.getUserObject().equals(getFileExtension(new File(file)))) {
+					treeModel.insertNodeInto(new DefaultMutableTreeNode(file), childs, i);
 					i++;
 				}
-			}
 		}
 	}
 	
