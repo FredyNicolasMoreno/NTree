@@ -33,9 +33,7 @@ public class Controller implements ActionListener{
 				root.setName(file.getPath());
 				createTree(root);
 				getExtensions();
-				window.setData(root,
-						files,
-						getExtensions());
+				window.setData(root, files,	getExtensions());
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}

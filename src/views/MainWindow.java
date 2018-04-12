@@ -32,6 +32,7 @@ public class MainWindow extends JFrame{
 	private JTree tree;
 	
 	public MainWindow(Controller control) {
+		
 		setExtendedState(MAXIMIZED_BOTH);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -63,25 +64,33 @@ public class MainWindow extends JFrame{
 	
 	public void setData(Node root, ArrayList<String> files, HashSet<String> extensions) {
 		DefaultMutableTreeNode father = new DefaultMutableTreeNode(root.getName());
+		
 		treeModel = new DefaultTreeModel(father);
 		tree.setModel(treeModel);
 		treeModel.setAsksAllowsChildren(true);
 		int i = 0;
 		for (String extension : extensions) {
 			DefaultMutableTreeNode childs = new DefaultMutableTreeNode(extension);
+			DefaultMutableTreeNode max = new DefaultMutableTreeNode("Menor tamaño");
+			DefaultMutableTreeNode min = new DefaultMutableTreeNode("Mayor tamaño");
 			treeModel.insertNodeInto(childs, father, i);
-			addFiles(childs,files,extensions);
+			treeModel.insertNodeInto(min, childs, 0);
+			treeModel.insertNodeInto(max , childs, 1);
+			addFiles(childs,files,extensions, min, max);
 			i++;
 		}
 	}
 
-	private void addFiles(DefaultMutableTreeNode childs, ArrayList<String> files, HashSet<String> extensions) {
-		
-			int i = 0;
+	private void addFiles(DefaultMutableTreeNode childs, ArrayList<String> files, HashSet<String> extensions, DefaultMutableTreeNode min, DefaultMutableTreeNode max) {
+			
 			for (String file : files) {
 				if(childs.getUserObject().equals(getFileExtension(new File(file)))) {
-					treeModel.insertNodeInto(new DefaultMutableTreeNode(file), childs, i);
-					i++;
+					if(new File(file).length()>(50*1000)) {
+//						treeModel.insertNodeInto(new DefaultMutableTreeNode(file), childs, i);
+						max.add(new DefaultMutableTreeNode(file));
+					}else {
+						min.add(new DefaultMutableTreeNode(file));
+					}
 				}
 		}
 	}
