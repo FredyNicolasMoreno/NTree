@@ -15,15 +15,16 @@ public class FileChooser extends JDialog{
 		setSize(800,400);
 		setLocationRelativeTo(null);
 		setModal(true);
-		FileNameExtensionFilter xml = new FileNameExtensionFilter(".xml", "xml");
-		FileNameExtensionFilter json = new FileNameExtensionFilter(".jsn", "jsn");
-		FileNameExtensionFilter bin = new FileNameExtensionFilter(".bin", "bin");
-		FileNameExtensionFilter txt = new FileNameExtensionFilter(".txt", "txt");
+//		FileNameExtensionFilter xml = new FileNameExtensionFilter(".xml", "xml");
+//		FileNameExtensionFilter json = new FileNameExtensionFilter(".jsn", "jsn");
+//		FileNameExtensionFilter bin = new FileNameExtensionFilter(".bin", "bin");
+//		FileNameExtensionFilter txt = new FileNameExtensionFilter(".txt", "txt");
 		jFileChooser = new JFileChooser();
-		jFileChooser.setFileFilter(xml);
-		jFileChooser.setFileFilter(json);
-		jFileChooser.setFileFilter(bin);
-		jFileChooser.setFileFilter(txt);
+		jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//		jFileChooser.setFileFilter(xml);
+//		jFileChooser.setFileFilter(json);
+//		jFileChooser.setFileFilter(bin);
+//		jFileChooser.setFileFilter(txt);
 	}
 
 
